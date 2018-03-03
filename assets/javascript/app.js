@@ -15,9 +15,26 @@ $(document).ready(function () {
             url: queryURL + $(this).attr("value") + apiKey,
             method: "GET"
         }).then(function (response) {
+            for (i = 0; i < 10; i++) {
+                var picLabel = "pic" + i;
+                var picRefer = "#" + picLabel + ">.gifImage";
+                var textRefer = "#" + picLabel + ">.card-body>.gifText";
+                if (i === 0) {
+                    $(".gifImage").attr("src", response.data[0].images.downsized_still.url);
+                    $(".gifText").text("Rated " + response.data[0].rating);
 
+                } else if ($(".pictures").children().length<10){
+                    $(".card:first").clone().appendTo(".pictures").attr("id", picLabel);
+                    $(picRefer).attr("src", response.data[i].images.downsized_still.url);
+                    $(textRefer).text("Rated " + response.data[i].rating);
+                } else{
+                    $(picRefer).attr("src", response.data[i].images.downsized_still.url);
+                    $(textRefer).text("Rated " + response.data[i].rating);
+                }
+
+            }
+            $(".pictures").show();
             console.log(response);
-
         });
     })
 })
