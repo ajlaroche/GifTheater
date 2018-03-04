@@ -18,13 +18,22 @@
         <div class="row" id="topSpace"></div>
         <div class="row" id="themeButtons"></div>
         <div class="row">
-            <div class="col-10 pictures">
+            <div class="col-9 pictures">
                 <div class="card">
-                    <img class="card-img-top gifImage" src="" alt="First gif">
-                    <div class="card-body justify-content-center"> <span class="gifText"></span> </div>
-                  </div>
+                    <img class="card-img-top gifImage" src="" id="firstImage" alt="First gif">
+                    <div class="card-body">
+                        <span class="gifText"></span>
+                    </div>
+                </div>
             </div>
-            <div class="col-2 userSection"></div>
+            <div class="col-3 userSection">
+                <div class="form-group">
+                    <label for="userTheme">Add a theme</label>
+                    <input type="text" class="form-control" id="userTheme" placeholder="">
+                    <button type="submit" class="btn btn-primary" id="userSubmitButton">Submit</button>
+                </div>
+
+            </div>
         </div>
     </div>
 
