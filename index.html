@@ -8,21 +8,32 @@
     <title>Gif Theater</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Gloria+Hallelujah" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Playfair+Display" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
 
     <div class="container">
+        <div class="row justify-content-center" id="topPage">
+            <header>
+                <h1>Welcome to Gif Theater</h1>
+            </header>
+        </div>
         <div class="row" id="topSpace"></div>
-        <div class="row" id="themeButtons"></div>
+        <div class="row justify-content-center" id="themeButtons"></div>
         <div class="row">
+
             <div class="col-9 pictures">
-                <div class="card">
-                    <img class="card-img-top gifImage" src="" id="firstImage" alt="First gif">
-                    <div class="card-body">
-                        <span class="gifText"></span>
+                <div class="row justify-content-center" id="bigScreen">
+                    <img src="./assets/images/showtime.jpg" class="img-fluid" id="showtime" alt="Showtime">
+                </div>
+                <div class="row" id="choices">
+                    <div class="card">
+                        <img class="card-img-top gifImage" src="" id="firstImage" alt="First gif">
+                        <div class="card-body">
+                            <span class="gifText"></span>
+                        </div>
                     </div>
                 </div>
             </div>

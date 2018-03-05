@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var topics = ["NFL", "Help Desk", "NBA", "Game Of Thrones"];
+    var topics = ["The Office", "Negan", "Orange is the Black", "Game Of Thrones", "House of Cards", "Scandal", "Seinfeld"];
     var topicIndex = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
 
     function renderButtons() {
@@ -16,6 +16,7 @@ $(document).ready(function () {
     var chosenTheme;
 
     $("#themeButtons").on("click", ".btn", function () {
+        $("#showtime").hide();
         $.ajax({
             url: queryURL + $(this).attr("data-name") + apiKey,
             method: "GET"
@@ -31,12 +32,11 @@ $(document).ready(function () {
                     $(".gifImage").attr("data-anime", response.data[i].images.downsized.url);
                     $(".gifImage").attr("data-still", response.data[i].images.downsized_still.url);
                     $(".gifImage").attr("data-state", "still");
-                    // $(".gifImage").attr("id", imageRef);
                     $(".gifText").text("Rated " + response.data[i].rating);
 
                 } else
-                    if ($(".pictures").children().length < 10) {
-                        $(".card:first").clone().appendTo(".pictures").attr("id", picLabel); // add new card and assign id based on topics array
+                    if ($("#choices").children().length < 10) {
+                        $(".card:first").clone().appendTo("#choices").attr("id", picLabel); // add new card and assign id based on topics array
                         $(picRefer).attr("src", response.data[i].images.downsized_still.url); // change picture in new card
                         $(picRefer).attr("data-anime", response.data[i].images.downsized.url);
                         $(picRefer).attr("data-still", response.data[i].images.downsized_still.url);
@@ -54,7 +54,7 @@ $(document).ready(function () {
                     }
 
             }
-            $(".pictures").show();
+            $("#choices").show();
             console.log(response);
         });
     })
@@ -76,12 +76,16 @@ $(document).ready(function () {
     $(".pictures").on("click", ".card", function () {
         if ($("img", this).attr("data-state") === "still") {
             var animatedUrl = $("img", this).attr("data-anime");
+            $("#bigScreen").append(this);
+            $(this).css("width", "60%");
             $("img", this).attr("src", animatedUrl);
             $("img", this).attr("data-state", "animated");
         } else {
             var animatedUrl = $("img", this).attr("data-still");
             $("img", this).attr("src", animatedUrl);
+            $(this).css("width", "30%");
             $("img", this).attr("data-state", "still");
+            $("#choices").prepend(this);
         }
         console.log(animatedUrl);
         console.log(this);
