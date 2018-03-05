@@ -45,6 +45,7 @@ $(document).ready(function () {
             randomStorage[i] = randomGif;
         }
         console.log(randomStorage);
+        randomStorage=[];
     }
     randomArray();
 
@@ -95,6 +96,7 @@ $(document).ready(function () {
 
 
     $("#themeButtons").on("click", ".btn", function () {
+        randomArray();
         $("#bigScreen").empty();
         $("#showtime").hide();
         chosenGif = this;
