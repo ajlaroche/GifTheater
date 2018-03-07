@@ -63,26 +63,26 @@ $(document).ready(function () {
                 var imageRef = "imageNum" + topicIndex[i];
                 var textRefer = "#" + picLabel + ">.card-body>.gifText";
                 if (i === 0) {
-                    $(".gifImage").attr("src", response.data[gifNumber].images.downsized_still.url);
-                    $(".gifImage").attr("data-anime", response.data[gifNumber].images.downsized.url);
-                    $(".gifImage").attr("data-still", response.data[gifNumber].images.downsized_still.url);
+                    $(".gifImage").attr("src", response.data[gifNumber].images.fixed_height_still.url);
+                    $(".gifImage").attr("data-anime", response.data[gifNumber].images.fixed_height.url);
+                    $(".gifImage").attr("data-still", response.data[gifNumber].images.fixed_height_still.url);
                     $(".gifImage").attr("data-state", "still");
                     $(".gifText").text("Rated " + response.data[gifNumber].rating);
 
                 } else
                     if ($("#choices").children().length < 10) {
                         $(".card:first").clone().appendTo("#choices").attr("id", picLabel); // add new card and assign id based on topics array
-                        $(picRefer).attr("src", response.data[gifNumber].images.downsized_still.url); // change picture in new card
-                        $(picRefer).attr("data-anime", response.data[gifNumber].images.downsized.url);
-                        $(picRefer).attr("data-still", response.data[gifNumber].images.downsized_still.url);
+                        $(picRefer).attr("src", response.data[gifNumber].images.fixed_height_still.url); // change picture in new card
+                        $(picRefer).attr("data-anime", response.data[gifNumber].images.fixed_height.url);
+                        $(picRefer).attr("data-still", response.data[gifNumber].images.fixed_height_still.url);
                         $(picRefer).attr("data-state", "still");
                         $(picRefer).attr("id", imageRef);
                         $(textRefer).text("Rated " + response.data[gifNumber].rating); //change rating in new card
                     }
                     else {
-                        $(picRefer).attr("src", response.data[gifNumber].images.downsized_still.url);
-                        $(picRefer).attr("data-anime", response.data[gifNumber].images.downsized.url);
-                        $(picRefer).attr("data-still", response.data[gifNumber].images.downsized_still.url);
+                        $(picRefer).attr("src", response.data[gifNumber].images.fixed_height_still.url);
+                        $(picRefer).attr("data-anime", response.data[gifNumber].images.fixed_height.url);
+                        $(picRefer).attr("data-still", response.data[gifNumber].images.fixed_height_still.url);
                         $(picRefer).attr("data-state", "still");
                         $(picRefer).attr("id", imageRef);
                         $(textRefer).text("Rated " + response.data[gifNumber].rating);
@@ -102,10 +102,11 @@ $(document).ready(function () {
         chosenGif = this;
         renderGifs(chosenGif);
     })
+    
     $("#userSubmitButton").on("click", function () {
 
         if ($("#userTheme").val() !== "") {
-            topics.push($("#userTheme").val());
+            topics.push($("#userTheme").val().trim());
             $("#themeButtons").empty();
             renderButtons();
             $("#userTheme").val("");
