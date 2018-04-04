@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var topics = ["The Office", "Negan", "Orange is the Black", "Game Of Thrones", "House of Cards", "Scandal", "Seinfeld"];
-    var topicIndex = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+    // var topicIndex = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
 
     //Function adds buttons top of page based on topics in matrix
     function renderButtons() {
@@ -20,6 +20,7 @@ $(document).ready(function () {
     var chosenGif;
     var gifSelector = [];
     var randomStorage = [];
+    var numberOfcards = 0;
 
     function randomArray() {
         for (i = 0; i < numberReturned; i++) {
@@ -45,7 +46,7 @@ $(document).ready(function () {
             randomStorage[i] = randomGif;
         }
         console.log(randomStorage);
-        randomStorage=[];
+        randomStorage = [];
     }
     randomArray();
 
@@ -56,11 +57,11 @@ $(document).ready(function () {
             url: queryURL + $(selected).attr("data-name") + apiKey,
             method: "GET"
         }).then(function (response) {
-            for (i = 0; i < 10; i++) {
+            for (i = numberOfcards; i < numberOfcards + 10; i++) {
                 var gifNumber = gifSelector[i];  //picks up random array placement
-                var picLabel = "pic" + topicIndex[i];
+                var picLabel = "pic" + i;
                 var picRefer = "#" + picLabel + ">.gifImage";
-                var imageRef = "imageNum" + topicIndex[i];
+                var imageRef = "imageNum" + i;
                 var textRefer = "#" + picLabel + ">.card-body>.gifText";
                 if (i === 0) {
                     $(".gifImage").attr("src", response.data[gifNumber].images.fixed_height_still.url);
@@ -70,8 +71,8 @@ $(document).ready(function () {
                     $(".gifText").text("Rated " + response.data[gifNumber].rating);
 
                 } else
-                    if ($("#choices").children().length < 10) {
-                        $(".card:first").clone().appendTo("#choices").attr("id", picLabel); // add new card and assign id based on topics array
+                    if ($("#choices").children().length < numberOfcards + 10) {
+                        $(".card:first").clone().appendTo("#choices").attr("id", picLabel).addClass("moreCards"); // add new card and assign id based on topics array
                         $(picRefer).attr("src", response.data[gifNumber].images.fixed_height_still.url); // change picture in new card
                         $(picRefer).attr("data-anime", response.data[gifNumber].images.fixed_height.url);
                         $(picRefer).attr("data-still", response.data[gifNumber].images.fixed_height_still.url);
@@ -96,13 +97,16 @@ $(document).ready(function () {
 
 
     $("#themeButtons").on("click", ".btn", function () {
+        numberOfcards=0;
+        $("#choices").find(".moreCards").remove();
+        console.log($("#choices").children().length)
         randomArray();
         $("#bigScreen").empty();
         $("#showtime").hide();
         chosenGif = this;
         renderGifs(chosenGif);
     })
-    
+
     $("#userSubmitButton").on("click", function () {
 
         if ($("#userTheme").val() !== "") {
@@ -113,10 +117,23 @@ $(document).ready(function () {
             console.log(topics);
         }
     })
+
     $("#userTheme").keypress(function (e) {
         if (e.keyCode == 13)
             $("#userSubmitButton").click();
     });
+
+    $("#addMoreGifs").on("click", function () {
+        if (numberOfcards === numberReturned) {
+            alert("Maximum Gifs Reached");
+        } else {
+            if ($("#choices").children().length >= 10) {
+                numberOfcards += 10;
+                renderGifs(chosenGif);
+                console.log(numberOfcards);
+            }
+        }
+    })
 
     $(".pictures").on("click", ".card", function () {
         if ($("img", this).attr("data-state") === "still") {
